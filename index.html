@@ -1,0 +1,845 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>VLBC – Vieux-Lille Boxing Club, club de boxe anglaise à Lille</title>
+<meta name="description" content="VLBC, club associatif de boxe anglaise au 7 rue de la Halle, Vieux-Lille : boxe éducative et amateur, dès 5 ans. Noté 5,0 sur Google.">
+<meta property="og:title" content="VLBC – Vieux-Lille Boxing Club, boxe anglaise à Lille">
+<meta property="og:description" content="Boxe éducative et amateur au 7 rue de la Halle, dans le Vieux-Lille. Dès 5 ans, femmes et hommes.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="fr_FR">
+<meta name="theme-color" content="#9B3A24">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%239B3A24'/%3E%3Cpath d='M17 54V30a15 15 0 0 1 30 0v24' fill='none' stroke='%23F3ECE2' stroke-width='5'/%3E%3Cpath d='M24.5 29l7.5 17 7.5-17' fill='none' stroke='%23F3ECE2' stroke-width='5' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;600;700&display=swap">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SportsClub",
+  "name": "VLBC - Vieux-Lille Boxing Club",
+  "alternateName": "Noble Art Vieux Lille",
+  "sport": "Boxe anglaise",
+  "telephone": "+33626611752",
+  "email": "vlbc@gmail.com",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "7 Rue de la Halle",
+    "postalCode": "59800",
+    "addressLocality": "Lille",
+    "addressCountry": "FR"
+  },
+  "geo": { "@type": "GeoCoordinates", "latitude": 50.6445404, "longitude": 3.0603919 },
+  "hasMap": "https://www.google.com/maps/place/?q=place_id:ChIJOT4AMnoqw0cRwZfW_Rj723c",
+  "sameAs": ["https://www.facebook.com/p/Vieux-Lille-Boxing-Club-100071052219325/"]
+}
+</script>
+<style>
+/* ------------------------------------------------------------------
+   VLBC – design decisions
+   Palette  : taken from the club's only photo, the brick arcade of rue de
+              la Halle. Brick red is the brand (#9B3A24), limestone plinth
+              gives the paper background, slate window glass and bitumen
+              give the warm near-black ink. One gold accent, used only on
+              dark grounds (stars, stamp), like a championship belt.
+   Type     : Anton (condensed, fight-poster display) + Archivo (sturdy
+              grotesque for reading). Display always tight, uppercase for
+              posters, mixed case for the customer quote.
+   Hero     : typographic poster. One real photo only, and it is a street
+              view, so the hero is type + the Halle facade drawn in SVG
+              (arches, mullions, stone plinth). The photo is used where it
+              helps most: recognising the building in the access section.
+   Rhythm   : paper poster → paper proof with an oversized 5,0 → ink
+              disciplines (ring-rope dividers) → brick-red history band
+              (the one strong colour move) → paper practical info → stone
+              contact → ink footer.
+------------------------------------------------------------------- */
+:root{
+  --bg:#F3ECE2; --surface:#FBF8F3; --surface-2:#E8DED0; --ink:#1D1815; --ink-soft:#5B5049;
+  --brand:#9B3A24; --brand-deep:#7E2C1A; --brand-bright:#E36B4D; --brand-ink:#FFF8F0;
+  --accent:#E2A93B; --line:#D5C8B6; --line-dark:rgba(243,236,226,.16); --bone-soft:#C3B7AA;
+
+  --font-display:"Anton", "Impact", "Arial Narrow", sans-serif;
+  --font-body:"Archivo", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --step--1:clamp(.875rem, .85rem + .12vw, .95rem);
+  --step-0:clamp(1rem, .96rem + .2vw, 1.125rem);
+  --step-1:clamp(1.2rem, 1.1rem + .45vw, 1.45rem);
+  --step-2:clamp(1.44rem, 1.25rem + .9vw, 1.95rem);
+  --step-3:clamp(1.8rem, 1.45rem + 1.7vw, 2.9rem);
+  --step-4:clamp(2.3rem, 1.6rem + 3.3vw, 4.4rem);
+  --step-5:clamp(3.1rem, 1.3rem + 8.4vw, 8.6rem);
+
+  --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px; --space-5:24px;
+  --space-6:32px; --space-7:48px; --space-8:64px; --space-9:96px;
+  --section:clamp(56px, 10vw, 128px);
+
+  --r-1:4px; --r-2:12px; --r-round:999px;
+  --shadow-1:0 1px 2px rgba(29,24,21,.06), 0 2px 8px rgba(29,24,21,.06);
+  --shadow-2:0 2px 4px rgba(29,24,21,.05), 0 14px 34px -10px rgba(29,24,21,.22);
+  --shadow-3:0 4px 10px rgba(29,24,21,.08), 0 30px 60px -20px rgba(29,24,21,.35);
+
+  --ease:cubic-bezier(.2,.7,.2,1);
+  --max:1200px; --gutter:clamp(16px, 5vw, 40px);
+  --header-h:64px; --bar-h:64px;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%;scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 var(--step-0)/1.6 var(--font-body);
+  padding-bottom:calc(var(--bar-h) + env(safe-area-inset-bottom));-webkit-font-smoothing:antialiased}
+html.lock{overflow:hidden}
+img,svg,iframe{display:block;max-width:100%}
+img{height:auto}
+h1,h2,h3{font-family:var(--font-display);font-weight:400;line-height:1.04;letter-spacing:-.005em;margin:0;text-wrap:balance}
+p{margin:0;text-wrap:pretty}
+ul,ol{margin:0;padding:0;list-style:none}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--brand);outline-offset:3px;border-radius:2px}
+.section-ink :focus-visible,.band-brick :focus-visible,.menu :focus-visible,.site-footer :focus-visible{outline-color:var(--accent)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+.skip{position:absolute;left:var(--space-4);top:var(--space-2);z-index:100;padding:12px 18px;min-height:44px;background:var(--ink);color:var(--bg);
+  border-radius:var(--r-1);font-weight:600;transform:translateY(-160%);transition:transform .2s var(--ease)}
+.skip:focus{transform:none}
+
+.container{width:min(100% - 2 * var(--gutter), var(--max));margin-inline:auto}
+.section{padding-block:var(--section)}
+section[id],#acces{scroll-margin-top:calc(var(--header-h) + 8px)}
+
+.eyebrow{display:flex;align-items:center;gap:var(--space-3);font:600 var(--step--1)/1.2 var(--font-body);
+  letter-spacing:.16em;text-transform:uppercase;color:var(--brand)}
+.eyebrow::before{content:"";width:28px;height:2px;background:currentColor;flex:none}
+.eyebrow-light{color:var(--brand-bright)}
+.h2{font-size:var(--step-4);line-height:1.1;text-transform:uppercase}
+.lead{font-size:var(--step-1);line-height:1.5;color:var(--ink-soft);max-width:44ch}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.6em;min-height:52px;padding:0 1.35em;
+  border-radius:var(--r-1);border:2px solid transparent;font:600 var(--step--1)/1 var(--font-body);letter-spacing:.08em;
+  text-transform:uppercase;text-decoration:none;cursor:pointer;transition:transform .2s var(--ease)}
+.btn svg{width:20px;height:20px;flex:none}
+.btn:active{transform:translateY(1px) scale(.99)}
+.btn-primary{background:var(--brand);color:var(--brand-ink);box-shadow:var(--shadow-1)}
+.btn-primary:hover{background:var(--brand-deep)}
+.btn-ghost{border-color:var(--ink);color:var(--ink)}
+.btn-ghost:hover{background:var(--ink);color:var(--bg)}
+.btn-light{border-color:var(--bg);color:var(--bg)}
+.btn-light:hover{background:var(--bg);color:var(--ink)}
+.icon{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.75;stroke-linecap:round;stroke-linejoin:round}
+
+/* Header */
+.site-header{position:sticky;top:0;z-index:60;background:var(--bg);border-bottom:1px solid var(--line)}
+.header-inner{display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);height:var(--header-h)}
+.brand{display:inline-flex;align-items:center;gap:var(--space-3);min-height:48px;text-decoration:none}
+.brand-mark{width:38px;height:38px;flex:none}
+.brand-text{display:flex;flex-direction:column;line-height:1}
+.brand-name{font:400 1.45rem/1 var(--font-display);letter-spacing:.02em}
+.brand-sub{font:600 .72rem/1.2 var(--font-body);letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);margin-top:3px}
+.menu-btn{display:inline-grid;place-items:center;width:48px;height:48px;margin-right:-8px;border:0;background:none;color:var(--ink);cursor:pointer;border-radius:var(--r-1)}
+.menu-btn span{grid-area:1/1;display:block;width:24px;height:2px;background:currentColor;transition:transform .3s var(--ease),opacity .2s}
+.menu-btn span:nth-child(1){transform:translateY(-7px)}
+.menu-btn span:nth-child(3){transform:translateY(7px)}
+.menu-btn[aria-expanded="true"] span:nth-child(1){transform:rotate(45deg)}
+.menu-btn[aria-expanded="true"] span:nth-child(2){opacity:0}
+.menu-btn[aria-expanded="true"] span:nth-child(3){transform:rotate(-45deg)}
+
+.menu{position:fixed;inset:var(--header-h) 0 0 0;z-index:55;background:var(--ink);color:var(--bg);
+  padding:var(--space-6) var(--gutter) calc(var(--space-6) + env(safe-area-inset-bottom));display:flex;flex-direction:column;gap:var(--space-6);
+  overflow-y:auto;visibility:hidden;opacity:0;transform:translateY(-10px);transition:opacity .3s var(--ease),transform .3s var(--ease),visibility 0s linear .3s}
+.menu.is-open{visibility:visible;opacity:1;transform:none;transition:opacity .3s var(--ease),transform .3s var(--ease)}
+.menu-links a{display:flex;align-items:baseline;gap:var(--space-4);min-height:56px;padding-block:var(--space-2);
+  font:400 var(--step-3)/1.1 var(--font-display);text-transform:uppercase;text-decoration:none;border-bottom:1px solid var(--line-dark)}
+.menu-links a small{font:600 var(--step--1)/1 var(--font-body);color:var(--brand-bright);letter-spacing:.1em;min-width:2ch}
+.menu-cta{margin-top:auto;display:grid;gap:var(--space-3)}
+.menu-cta .btn{width:100%}
+.header-cta{display:none}
+
+/* Hero */
+.hero{position:relative;overflow:hidden;padding-top:clamp(28px, 6vw, 72px)}
+.hero-kicker{display:flex;align-items:center;gap:var(--space-4);font:400 var(--step-1)/1 var(--font-display);
+  letter-spacing:.06em;text-transform:uppercase;color:var(--brand)}
+.hero-kicker::after{content:"";height:2px;flex:1;background:currentColor;opacity:.9}
+.hero-kicker span+span{display:none}
+.hero-title{margin-top:var(--space-4);font-size:var(--step-5);line-height:.96;letter-spacing:-.012em;text-transform:uppercase}
+.hero-title em{font-style:normal;color:var(--brand)}
+.hero-body{display:grid;gap:var(--space-7);margin-top:var(--space-5)}
+.hero-lede{font-size:var(--step-1);line-height:1.45;max-width:36ch}
+.hero-actions{display:grid;gap:var(--space-3);margin-top:var(--space-5)}
+.rating-chip{display:inline-flex;align-items:center;gap:var(--space-2);min-height:44px;margin-top:var(--space-5);padding:6px 16px 6px 12px;
+  border-radius:var(--r-round);background:var(--surface);box-shadow:var(--shadow-1);border:1px solid var(--line);
+  font-weight:600;font-size:var(--step--1);text-decoration:none;color:var(--ink)}
+.rating-chip .stars{color:var(--brand)}
+.rating-chip span{color:var(--ink-soft);font-weight:400}
+.stars{display:inline-flex;gap:2px}
+.stars svg{width:16px;height:16px;fill:currentColor}
+
+.bill{display:none}
+
+.facade{position:relative;margin-top:clamp(84px, 11vw, 112px)}
+.arcade{width:100%;height:clamp(150px, 21vw, 280px)}
+.stamp{position:absolute;right:var(--gutter);top:0;width:clamp(96px, 16vw, 188px);height:auto;transform:translateY(-52%) rotate(-10deg);
+  filter:drop-shadow(0 10px 18px rgba(29,24,21,.28))}
+
+/* Proof */
+.proof-grid{display:grid;gap:var(--space-7)}
+.score-num{font:400 clamp(7.5rem, 34vw, 15rem)/.82 var(--font-display);color:var(--brand);letter-spacing:-.02em;margin-top:var(--space-5)}
+.score .stars{color:var(--brand);margin-top:var(--space-6)}
+.score .stars svg{width:26px;height:26px}
+.score-meta{margin-top:var(--space-3);font-weight:600;font-size:var(--step-1)}
+.score-meta span{color:var(--ink-soft);font-weight:400}
+.link-arrow{display:inline-flex;align-items:center;gap:var(--space-2);min-height:48px;margin-top:var(--space-4);
+  font-weight:600;text-decoration:none;border-bottom:2px solid var(--brand);color:var(--ink)}
+.link-arrow svg{transition:transform .25s var(--ease)}
+.link-arrow:hover svg{transform:translateX(4px)}
+.quote{margin:0;position:relative;padding-top:var(--space-7)}
+.quote::before{content:"«";position:absolute;top:-.12em;left:-.04em;font:400 clamp(6rem, 22vw, 11rem)/1 var(--font-display);color:var(--brand);opacity:.18}
+.quote blockquote{margin:0}
+.quote p{position:relative;font:400 var(--step-4)/1.05 var(--font-display);letter-spacing:-.005em;max-width:16ch;text-wrap:balance}
+.quote mark{background:none;color:var(--brand)}
+.quote figcaption{display:flex;flex-wrap:wrap;align-items:center;gap:var(--space-2) var(--space-4);margin-top:var(--space-6);
+  padding-top:var(--space-4);border-top:1px solid var(--line);color:var(--ink-soft)}
+.quote figcaption strong{color:var(--ink)}
+.quote figcaption .stars{color:var(--brand)}
+
+/* Disciplines (ink) */
+.section-ink{background:var(--ink);color:var(--bg)}
+.section-ink .lead{color:var(--bone-soft)}
+.disc-grid{display:grid;gap:var(--space-8)}
+.disc-head .h2{margin-top:var(--space-4)}
+.disc-head .lead{margin-top:var(--space-5)}
+.tags{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-top:var(--space-6)}
+.tags li{padding:8px 14px;border:1px solid var(--line-dark);border-radius:var(--r-round);font-size:var(--step--1);font-weight:600;color:var(--bg)}
+.disc{display:grid;grid-template-columns:auto 1fr;gap:var(--space-2) var(--space-5);padding:var(--space-6) 0 var(--space-7);
+  background:
+    linear-gradient(var(--brand-bright),var(--brand-bright)) 0 0/100% 2px no-repeat,
+    linear-gradient(var(--bone-soft),var(--bone-soft)) 0 7px/100% 1px no-repeat,
+    linear-gradient(var(--brand-bright),var(--brand-bright)) 0 13px/100% 2px no-repeat;
+  padding-top:calc(13px + var(--space-6))}
+.disc-num{font:400 var(--step-3)/1 var(--font-display);color:transparent;-webkit-text-stroke:1.5px var(--brand-bright);min-width:2.2ch}
+.disc h3{font-size:var(--step-3);line-height:1.08;text-transform:uppercase}
+.disc h3 small{display:block;margin-top:var(--space-2);font:600 var(--step--1)/1.3 var(--font-body);letter-spacing:.14em;color:var(--accent)}
+.disc p{grid-column:2;color:var(--bone-soft);max-width:52ch;margin-top:var(--space-3)}
+
+/* History band (brick) */
+.band-brick{background:var(--brand);color:var(--bg);position:relative;overflow:hidden}
+.band-brick .eyebrow{color:var(--bg)}
+.band-brick .h2{margin-top:var(--space-4);max-width:14ch}
+.timeline{display:grid;gap:var(--space-7);margin-top:var(--space-8);position:relative}
+.tl-item{position:relative;padding-left:var(--space-6);border-left:2px solid rgba(243,236,226,.45)}
+.tl-item::before{content:"";position:absolute;left:-7px;top:.9em;width:12px;height:12px;border-radius:50%;background:var(--bg)}
+.tl-year{display:block;font:400 var(--step-5)/.9 var(--font-display);color:transparent;-webkit-text-stroke:2px var(--bg);letter-spacing:-.01em}
+.tl-item p{margin-top:var(--space-4);font-size:var(--step-1);line-height:1.45;max-width:30ch}
+.mission{margin-top:var(--space-8);padding:var(--space-6);border:2px solid rgba(243,236,226,.6);border-radius:var(--r-2);max-width:760px}
+.mission p{font:400 var(--step-2)/1.2 var(--font-display);text-transform:uppercase;letter-spacing:.005em}
+.mission small{display:block;margin-bottom:var(--space-3);font:600 var(--step--1)/1.3 var(--font-body);letter-spacing:.14em;text-transform:uppercase;color:#F4DCCD}
+
+/* Practical: first session + access */
+.first-grid{display:grid;gap:var(--space-7)}
+.first-head .h2{margin-top:var(--space-4)}
+.steps{counter-reset:step;display:grid;gap:var(--space-6);margin-top:var(--space-7)}
+.steps li{counter-increment:step;display:grid;grid-template-columns:48px 1fr;gap:var(--space-4);align-items:start}
+.steps li::before{content:counter(step);display:grid;place-items:center;width:48px;height:48px;border-radius:50%;
+  background:var(--ink);color:var(--bg);font:400 1.35rem/1 var(--font-display)}
+.steps h3{font-size:var(--step-2);text-transform:uppercase;padding-top:6px}
+.steps p{grid-column:2;color:var(--ink-soft);margin-top:var(--space-2);max-width:48ch}
+.steps a{color:var(--brand);font-weight:600;text-underline-offset:3px}
+
+.slots{background:var(--surface);border-radius:var(--r-2);box-shadow:var(--shadow-2);padding:var(--space-6) var(--space-5);
+  border-top:6px solid var(--brand);align-self:start}
+.slots h3{font-size:var(--step-2);text-transform:uppercase}
+.slots table{width:100%;border-collapse:collapse;margin-top:var(--space-5)}
+.slots th,.slots td{padding:14px 0;border-bottom:1px solid var(--line);text-align:left;font-weight:400;vertical-align:middle}
+.slots th{font-weight:600}
+.slots td{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.slots tr:last-child th,.slots tr:last-child td{border-bottom:0}
+.slots tr.is-today th,.slots tr.is-today td{color:var(--brand)}
+.today-tag{display:inline-block;margin-left:var(--space-2);padding:2px 8px;border-radius:var(--r-round);background:var(--brand);color:var(--brand-ink);
+  font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;vertical-align:2px}
+.today-tag[hidden]{display:none}
+.slots-note{margin-top:var(--space-4);padding-top:var(--space-4);border-top:1px dashed var(--line);font-size:var(--step--1);color:var(--ink-soft)}
+
+.access{margin-top:var(--section);display:grid;gap:var(--space-6)}
+.access-head .h2{margin-top:var(--space-4)}
+.access-media{display:grid;gap:var(--space-4)}
+.photo{margin:0;position:relative}
+.photo img{width:100%;height:100%;aspect-ratio:16/10;object-fit:cover;object-position:50% 30%;border-radius:var(--r-2);box-shadow:var(--shadow-2)}
+.photo figcaption{position:absolute;left:var(--space-3);bottom:var(--space-3);right:var(--space-3);width:fit-content;padding:6px 12px;border-radius:var(--r-1);
+  background:rgba(29,24,21,.8);color:var(--bg);font-size:var(--step--1);line-height:1.35}
+.map{position:relative;border-radius:var(--r-2);overflow:hidden;background:var(--surface-2);box-shadow:var(--shadow-1);aspect-ratio:4/3}
+.map iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.map-fallback{position:absolute;inset:0;display:grid;place-items:center;padding:var(--space-5);text-align:center;color:var(--ink-soft);font-size:var(--step--1)}
+.address{display:grid;gap:var(--space-4);align-content:start}
+.address address{font-style:normal;font-size:var(--step-1);line-height:1.45}
+.address address strong{display:block;font:400 var(--step-2)/1.1 var(--font-display);text-transform:uppercase;margin-bottom:var(--space-2)}
+.address-actions{display:flex;flex-wrap:wrap;gap:var(--space-3)}
+.address-actions .btn{flex:1 1 180px}
+
+/* Contact */
+.contact{background:var(--surface-2)}
+.contact-grid{display:grid;gap:var(--space-7)}
+.contact-head .h2{margin-top:var(--space-4)}
+.big-phone{display:inline-block;margin-top:var(--space-6);font:400 clamp(2.6rem, 11vw, 5.6rem)/1 var(--font-display);letter-spacing:.01em;
+  color:var(--brand);text-decoration:none;min-height:48px;white-space:nowrap}
+.big-phone:hover{color:var(--brand-deep)}
+.contact-list{display:grid;gap:var(--space-2);margin-top:var(--space-6)}
+.contact-list a{display:flex;align-items:center;gap:var(--space-3);min-height:48px;text-decoration:none;font-weight:600;overflow-wrap:anywhere}
+.contact-list a span{border-bottom:1px solid var(--line)}
+.contact-list .icon{color:var(--brand)}
+
+.composer{background:var(--surface);border-radius:var(--r-2);box-shadow:var(--shadow-3);padding:var(--space-6) var(--space-5);align-self:start}
+.composer h3{font-size:var(--step-2);text-transform:uppercase}
+.composer > p{margin-top:var(--space-2);color:var(--ink-soft);font-size:var(--step--1)}
+.field{margin-top:var(--space-5);border:0;padding:0;min-width:0}
+.field legend,.field label.lbl{display:block;padding:0;margin-bottom:var(--space-2);font-weight:600;font-size:var(--step--1);letter-spacing:.08em;text-transform:uppercase}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:var(--space-2)}
+.seg label{position:relative}
+.seg input{position:absolute;opacity:0;inset:0;margin:0;cursor:pointer}
+.seg span{display:flex;align-items:center;justify-content:center;min-height:48px;padding:0 var(--space-3);border:1.5px solid var(--line);
+  border-radius:var(--r-1);font-weight:600;text-align:center;line-height:1.2;background:var(--bg)}
+.seg input:checked + span{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.seg input:focus-visible + span{outline:3px solid var(--brand);outline-offset:2px}
+.select{position:relative}
+.select select{appearance:none;-webkit-appearance:none;width:100%;min-height:48px;padding:0 44px 0 14px;border:1.5px solid var(--line);border-radius:var(--r-1);
+  background:var(--bg);color:var(--ink);font:inherit}
+.select::after{content:"";position:absolute;right:18px;top:50%;width:9px;height:9px;border-right:2px solid var(--ink);border-bottom:2px solid var(--ink);
+  transform:translateY(-70%) rotate(45deg);pointer-events:none}
+.preview{margin-top:var(--space-5);padding:var(--space-4);border-left:3px solid var(--brand);background:var(--bg);border-radius:0 var(--r-1) var(--r-1) 0;
+  font-size:var(--step--1);color:var(--ink-soft)}
+.composer-actions{display:grid;gap:var(--space-3);margin-top:var(--space-5)}
+
+/* Footer */
+.site-footer{background:var(--ink);color:var(--bone-soft);padding-block:var(--space-8) var(--space-7);font-size:var(--step--1)}
+.footer-grid{display:grid;gap:var(--space-6)}
+.footer-brand{display:flex;align-items:center;gap:var(--space-3);color:var(--bg)}
+.footer-brand .brand-name{font-size:2rem}
+.footer-brand .brand-sub{color:var(--bone-soft)}
+.site-footer p{max-width:60ch}
+.footer-links{display:flex;flex-wrap:wrap;gap:var(--space-1) var(--space-5)}
+.footer-links a{display:inline-flex;align-items:center;gap:var(--space-2);min-height:44px;color:var(--bg);text-decoration:none;font-weight:600}
+.footer-links .icon{width:20px;height:20px}
+.footer-legal{display:grid;gap:var(--space-2);padding-top:var(--space-5);border-top:1px solid var(--line-dark)}
+
+/* Mobile action bar */
+.action-bar{position:fixed;left:0;right:0;bottom:0;z-index:50;display:grid;grid-template-columns:repeat(3,1fr);
+  background:var(--ink);padding-bottom:env(safe-area-inset-bottom);box-shadow:0 -8px 24px rgba(29,24,21,.18)}
+.action-bar a{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:var(--bar-h);
+  color:var(--bg);text-decoration:none;font:600 .8rem/1 var(--font-body);letter-spacing:.08em;text-transform:uppercase}
+.action-bar a + a{border-left:1px solid var(--line-dark)}
+.action-bar a:first-child{background:var(--brand)}
+.action-bar .icon{width:22px;height:22px}
+
+/* Reveal */
+.js .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.js .reveal.is-in{opacity:1;transform:none}
+
+/* ---------- 640 ---------- */
+@media (min-width:640px){
+  .hero-kicker span+span{display:inline;margin-left:auto;order:3;font:600 var(--step--1)/1 var(--font-body);letter-spacing:.14em;color:var(--ink-soft)}
+  .hero-actions{display:flex;flex-wrap:wrap}
+  .composer-actions{grid-template-columns:1fr 1fr}
+  .photo img{aspect-ratio:3/2}
+}
+/* ---------- 768: action bar off, header CTA on ---------- */
+@media (min-width:768px){
+  body{padding-bottom:0}
+  .action-bar{display:none}
+}
+/* ---------- 960 ---------- */
+@media (min-width:960px){
+  :root{--header-h:76px}
+  .menu-btn{display:none}
+  .menu{position:static;inset:auto;visibility:visible;opacity:1;transform:none;background:none;color:inherit;padding:0;overflow:visible;
+    flex-direction:row;align-items:center;gap:var(--space-5);transition:none}
+  .menu-links{display:flex;gap:var(--space-1)}
+  .menu-links a{min-height:44px;padding:0 var(--space-3);border:0;font:600 var(--step--1)/1 var(--font-body);letter-spacing:.1em;align-items:center}
+  .menu-links a small{display:none}
+  .menu-links a:hover{color:var(--brand)}
+  .menu-cta{display:none}
+  .header-cta{display:inline-flex;min-height:46px}
+
+  .hero-body{grid-template-columns:minmax(0,6fr) minmax(0,5fr);align-items:end;gap:var(--space-8)}
+  .bill{display:block;border-top:3px solid var(--ink);border-bottom:3px solid var(--ink);padding-block:var(--space-3)}
+  .bill-label{font:600 var(--step--1)/1 var(--font-body);letter-spacing:.16em;text-transform:uppercase;color:var(--ink-soft);padding-block:var(--space-3)}
+  .bill li{display:flex;justify-content:space-between;align-items:baseline;gap:var(--space-4);padding-block:var(--space-3);border-top:1px solid var(--line);
+    font:400 var(--step-2)/1.1 var(--font-display);text-transform:uppercase}
+  .bill li span{font:600 var(--step--1)/1 var(--font-body);letter-spacing:.1em;color:var(--brand)}
+  .hero-actions{margin-top:var(--space-6)}
+
+  .proof-grid{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--space-8);align-items:center}
+  .quote{padding-top:0}
+  .quote::before{top:-.45em}
+
+  .disc-grid{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--space-9)}
+  .disc-head{position:sticky;top:calc(var(--header-h) + var(--space-7));align-self:start}
+
+  .timeline{grid-template-columns:repeat(3,1fr);gap:var(--space-6);padding-top:var(--space-6);margin-top:var(--space-9)}
+  .timeline::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:rgba(243,236,226,.45)}
+  .tl-item{padding-left:0;border-left:0;padding-top:var(--space-5)}
+  .tl-item::before{left:0;top:calc(-1 * var(--space-6) - 5px)}
+  .mission{margin-left:auto;margin-top:var(--space-7)}
+
+  .first-grid{grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:var(--space-9)}
+  .slots{padding:var(--space-7) var(--space-6);margin-top:var(--space-8)}
+  .access{grid-template-columns:minmax(0,7fr) minmax(0,5fr);column-gap:var(--space-8);row-gap:var(--space-7);align-items:end}
+  .access-media{grid-column:1 / -1;grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:var(--space-5)}
+  .map{aspect-ratio:auto;height:100%;min-height:320px}
+
+  .contact-grid{grid-template-columns:minmax(0,7fr) minmax(0,5fr);gap:var(--space-9);align-items:center}
+  .composer{padding:var(--space-7) var(--space-6)}
+
+  .footer-grid{grid-template-columns:1.2fr 1fr;align-items:start}
+  .footer-links{justify-content:flex-end}
+  .footer-legal{grid-column:1 / -1;display:flex;justify-content:space-between;gap:var(--space-5)}
+}
+@media (min-width:1200px){
+  .hero-title{letter-spacing:-.016em}
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none !important;transition:none !important}
+  .js .reveal{opacity:1;transform:none}
+}
+</style>
+<!--sf:preview--><meta name="robots" content="noindex, nofollow"><!--/sf:preview-->
+<!--sf:og--><meta property="og:image" content="https://vlbc-vieux-lille-boxing-club-lille.aymenjallouli.dev/og.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:url" content="https://vlbc-vieux-lille-boxing-club-lille.aymenjallouli.dev/"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://vlbc-vieux-lille-boxing-club-lille.aymenjallouli.dev/og.jpg"><!--/sf:og-->
+</head>
+<body id="top">
+<a class="skip" href="#main">Aller au contenu</a>
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="#top" aria-label="VLBC, Vieux-Lille Boxing Club : retour en haut de page">
+      <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true" focusable="false">
+        <rect width="40" height="40" rx="9" fill="#9B3A24"/>
+        <path d="M10.5 34V19a9.5 9.5 0 0 1 19 0v15" fill="none" stroke="#F3ECE2" stroke-width="3"/>
+        <path d="M15.5 18.5l4.5 10.5 4.5-10.5" fill="none" stroke="#F3ECE2" stroke-width="3" stroke-linejoin="round"/>
+      </svg>
+      <span class="brand-text"><span class="brand-name">VLBC</span><span class="brand-sub">Vieux-Lille Boxing Club</span></span>
+    </a>
+    <nav id="menu" class="menu" aria-label="Menu principal">
+      <ul class="menu-links">
+        <li><a href="#avis"><small>01</small>Avis</a></li>
+        <li><a href="#boxe"><small>02</small>La boxe</a></li>
+        <li><a href="#club"><small>03</small>Le club</a></li>
+        <li><a href="#entrainements"><small>04</small>Entraînements</a></li>
+        <li><a href="#acces"><small>05</small>Accès</a></li>
+        <li><a href="#contact"><small>06</small>Contact</a></li>
+      </ul>
+      <div class="menu-cta">
+        <a class="btn btn-primary" href="tel:+33626611752">
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
+          Appeler le 06 26 61 17 52
+        </a>
+        <a class="btn btn-light" href="https://www.google.com/maps/dir/?api=1&amp;destination=VLBC%20-%20Vieux-Lille%20Boxing%20Club%2C%207%20Rue%20de%20la%20Halle%2C%2059800%20Lille" target="_blank" rel="noopener">Itinéraire vers la salle</a>
+      </div>
+    </nav>
+    <a class="btn btn-primary header-cta" href="tel:+33626611752">
+      <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
+      06 26 61 17 52
+    </a>
+    <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu" aria-label="Ouvrir le menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="container">
+      <p class="hero-kicker"><span>Vieux-Lille Boxing Club</span><span>Boxe anglaise · Lille</span></p>
+      <h1 class="hero-title" id="hero-title">Le noble art, <em>rue de la Halle.</em></h1>
+      <div class="hero-body">
+        <div>
+          <p class="hero-lede">Boxe éducative et boxe amateur dans un club associatif du Vieux-Lille. Dès 5&nbsp;ans, pour elles comme pour eux.</p>
+          <a class="rating-chip" href="https://www.google.com/maps/place/?q=place_id:ChIJOT4AMnoqw0cRwZfW_Rj723c" target="_blank" rel="noopener" aria-label="Note Google 5,0 sur 5, 8 avis : voir les avis">
+            <span class="stars" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2.8l2.8 5.7 6.3.9-4.6 4.4 1.1 6.2L12 17l-5.6 3 1.1-6.2-4.6-4.4 6.3-.9z"/></svg></span>
+            5,0 <span>· 8 avis Google</span>
+          </a>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="tel:+33626611752">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
+              Appeler le club
+            </a>
+            <a class="btn btn-ghost" href="#entrainements">Les créneaux</a>
+          </div>
+        </div>
+        <div class="bill" aria-label="Disciplines">
+          <p class="bill-label">À l'affiche</p>
+          <ul>
+            <li>Boxe éducative assaut <span>Touche</span></li>
+            <li>Boxe amateur <span>Compétition</span></li>
+            <li>Noble art <span>Dès 5 ans</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="facade" aria-hidden="true">
+      <svg class="arcade" viewBox="0 0 1800 260" preserveAspectRatio="xMidYMax slice" focusable="false">
+        <defs>
+          <pattern id="bricks" width="28" height="16" patternUnits="userSpaceOnUse">
+            <rect width="28" height="16" fill="#9B3A24"/>
+            <path d="M0 7.5H28M0 15.5H28M14 0V7.5M.5 8V16M27.5 8V16" stroke="#7A2B19" stroke-width="1" opacity=".6"/>
+          </pattern>
+          <linearGradient id="glass" x1="0" y1="0" x2=".8" y2="1">
+            <stop offset="0" stop-color="#55666F"/>
+            <stop offset=".5" stop-color="#34434B"/>
+            <stop offset="1" stop-color="#222D33"/>
+          </linearGradient>
+          <pattern id="bay" x="0" y="0" width="180" height="260" patternUnits="userSpaceOnUse">
+            <rect width="180" height="260" fill="url(#bricks)"/>
+            <path d="M31 206V96a59 59 0 0 1 118 0v110" fill="none" stroke="#86311F" stroke-width="11"/>
+            <path d="M40 206V96a50 50 0 0 1 100 0v110z" fill="url(#glass)"/>
+            <path d="M40 200L140 70V104L40 234z" fill="#fff" opacity=".05"/>
+            <g fill="none" stroke="#D9CDBB" stroke-width="3">
+              <path d="M40 206V96a50 50 0 0 1 100 0v110"/>
+              <path d="M73 206V49M107 206V49M40 96H140M40 150H140"/>
+            </g>
+            <rect y="204" width="180" height="56" fill="#CFC2AD"/>
+            <rect x="34" y="200" width="112" height="8" fill="#E1D6C4"/>
+            <path d="M0 204.5H180M0 232H180M62 208V232M152 208V232M22 232V260M110 232V260" stroke="#AF9F88" stroke-width="1.5"/>
+          </pattern>
+        </defs>
+        <rect width="1800" height="10" y="0" fill="#7E2C1A"/>
+        <rect width="1800" height="250" y="10" fill="url(#bay)"/>
+      </svg>
+      <svg class="stamp" viewBox="0 0 200 200" focusable="false">
+        <defs><path id="ring" d="M100 100m-73 0a73 73 0 1 1 146 0a73 73 0 1 1-146 0"/></defs>
+        <circle cx="100" cy="100" r="99" fill="#1D1815"/>
+        <circle cx="100" cy="100" r="91" fill="none" stroke="#E2A93B" stroke-width="1.5"/>
+        <circle cx="100" cy="100" r="55" fill="none" stroke="#E2A93B" stroke-width="1.5"/>
+        <text fill="#F3ECE2" font-family="Archivo, sans-serif" font-weight="700" font-size="13.5" letter-spacing="2.6"><textPath href="#ring" textLength="452">BOXE ANGLAISE · VIEUX-LILLE · ASSOCIATION ·</textPath></text>
+        <text x="100" y="112" text-anchor="middle" fill="#F3ECE2" font-family="Anton, Impact, sans-serif" font-size="38" letter-spacing="1">VLBC</text>
+        <text x="100" y="134" text-anchor="middle" fill="#E2A93B" font-family="Archivo, sans-serif" font-weight="700" font-size="10" letter-spacing="3">LILLE</text>
+      </svg>
+    </div>
+  </section>
+
+  <section id="avis" class="section proof" aria-labelledby="avis-title">
+    <div class="container proof-grid">
+      <div class="score reveal">
+        <h2 class="eyebrow" id="avis-title">Avis Google</h2>
+        <p class="score-num" aria-hidden="true">5,0</p>
+        <p class="sr-only">Note moyenne&nbsp;: 5,0 sur 5.</p>
+        <div class="stars" role="img" aria-label="5 étoiles sur 5">
+          <svg viewBox="0 0 24 24"><path d="M12 2.8l2.8 5.7 6.3.9-4.6 4.4 1.1 6.2L12 17l-5.6 3 1.1-6.2-4.6-4.4 6.3-.9z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2.8l2.8 5.7 6.3.9-4.6 4.4 1.1 6.2L12 17l-5.6 3 1.1-6.2-4.6-4.4 6.3-.9z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2.8l2.8 5.7 6.3.9-4.6 4.4 1.1 6.2L12 17l-5.6 3 1.1-6.2-4.6-4.4 6.3-.9z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2.8l2.8 5.7 6.3.9-4.6 4.4 1.1 6.2L12 17l-5.6 3 1.1-6.2-4.6-4.4 6.3-.9z"/></svg>
+          <svg viewBox="0 0 24 24"><path d="M12 2.8l2.8 5.7 6.3.9-4.6 4.4 1.1 6.2L12 17l-5.6 3 1.1-6.2-4.6-4.4 6.3-.9z"/></svg>
+        </div>
+        <p class="score-meta">Sur 5 <span>· 8 avis Google</span></p>
+        <a class="link-arrow" href="https://www.google.com/maps/place/?q=place_id:ChIJOT4AMnoqw0cRwZfW_Rj723c" target="_blank" rel="noopener">
+          Voir les 8 avis sur Google
+          <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+      </div>
+      <figure class="quote reveal">
+        <blockquote>
+          <p>J'ai bien aimé <mark>l'approche</mark> et <mark>l'ambiance</mark>. Merci</p>
+        </blockquote>
+        <figcaption>
+          <strong>P H.</strong>
+          <span class="stars" role="img" aria-label="5 étoiles sur 5">
+            <svg viewBox="0 0 24 24"><path d="M12 2.8l2.8 5.7 6.3.9-4.6 4.4 1.1 6.2L12 17l-5.6 3 1.1-6.2-4.6-4.4 6.3-.9z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2.8l2.8 5.7 6.3.9-4.6 4.4 1.1 6.2L12 17l-5.6 3 1.1-6.2-4.6-4.4 6.3-.9z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2.8l2.8 5.7 6.3.9-4.6 4.4 1.1 6.2L12 17l-5.6 3 1.1-6.2-4.6-4.4 6.3-.9z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2.8l2.8 5.7 6.3.9-4.6 4.4 1.1 6.2L12 17l-5.6 3 1.1-6.2-4.6-4.4 6.3-.9z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 2.8l2.8 5.7 6.3.9-4.6 4.4 1.1 6.2L12 17l-5.6 3 1.1-6.2-4.6-4.4 6.3-.9z"/></svg>
+          </span>
+          <span>Avis Google · décembre 2023</span>
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="boxe" class="section section-ink" aria-labelledby="boxe-title">
+    <div class="container disc-grid">
+      <header class="disc-head reveal">
+        <p class="eyebrow eyebrow-light">La boxe au VLBC</p>
+        <h2 class="h2" id="boxe-title">Trois façons d'enfiler les gants.</h2>
+        <p class="lead">La boxe anglaise sous trois formes, dans un club ouvert aux femmes comme aux hommes.</p>
+        <ul class="tags">
+          <li>Dès 5 ans</li>
+          <li>Femmes et hommes</li>
+          <li>Association loi 1901</li>
+        </ul>
+      </header>
+      <ol class="disc-list">
+        <li class="disc reveal">
+          <span class="disc-num" aria-hidden="true">01</span>
+          <h3>Boxe éducative assaut <small>La touche plutôt que la force</small></h3>
+          <p>La forme éducative de la boxe anglaise&nbsp;: les coups sont portés à la touche, sans puissance. On y apprend le geste, et on s'y mesure aussi en compétition.</p>
+        </li>
+        <li class="disc reveal">
+          <span class="disc-num" aria-hidden="true">02</span>
+          <h3>Boxe amateur <small>Boxe anglaise</small></h3>
+          <p>La boxe anglaise de compétition, en amateur. La promouvoir fait partie de l'objet du club, qui a organisé son propre gala dans le Vieux-Lille en 2019.</p>
+        </li>
+        <li class="disc reveal">
+          <span class="disc-num" aria-hidden="true">03</span>
+          <h3>Noble art, dès 5 ans <small>Enfants et jeunes</small></h3>
+          <p>Les enfants sont accueillis à partir de 5 ans. Aider les jeunes à trouver leur place fait partie des buts inscrits dans les statuts de l'association.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="club" class="section band-brick" aria-labelledby="club-title">
+    <div class="container">
+      <p class="eyebrow reveal">Le club</p>
+      <h2 class="h2 reveal" id="club-title">Sorti du quartier, resté dans le quartier.</h2>
+      <ol class="timeline">
+        <li class="tl-item reveal">
+          <span class="tl-year">2011</span>
+          <p>Un programme de boxe éducative démarre avec la Maison de Quartier du Vieux-Lille.</p>
+        </li>
+        <li class="tl-item reveal">
+          <span class="tl-year">2017</span>
+          <p>Le 8 août, le Vieux-Lille Boxing Club est déclaré en association loi 1901.</p>
+        </li>
+        <li class="tl-item reveal">
+          <span class="tl-year">2019</span>
+          <p>Plus de 100 adhérents, et un gala de 14 combats organisé dans le Vieux-Lille.</p>
+        </li>
+      </ol>
+      <div class="mission reveal">
+        <small>L'objet de l'association</small>
+        <p>Promouvoir la boxe amateur et la boxe éducative, et aider les jeunes à s'intégrer.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="entrainements" class="section" aria-labelledby="first-title">
+    <div class="container">
+      <div class="first-grid">
+        <div class="first-head reveal">
+          <p class="eyebrow">Venir boxer</p>
+          <h2 class="h2" id="first-title">Votre premier entraînement.</h2>
+          <ol class="steps">
+            <li>
+              <h3>Appelez ou écrivez</h3>
+              <p>Au <a href="tel:+33626611752">06 26 61 17 52</a>, par SMS ou par e-mail. Demandez le créneau qui correspond à votre âge et à la discipline choisie.</p>
+            </li>
+            <li>
+              <h3>Choisissez votre créneau</h3>
+              <p>Trois soirs en semaine, du mercredi au vendredi, et le samedi matin.</p>
+            </li>
+            <li>
+              <h3>Poussez la porte</h3>
+              <p>La salle de sports se trouve au 7, rue de la Halle, dans le Vieux-Lille.</p>
+            </li>
+          </ol>
+        </div>
+        <aside class="slots reveal" aria-labelledby="slots-title">
+          <h3 id="slots-title">Créneaux d'entraînement</h3>
+          <table>
+            <caption class="sr-only">Créneaux d'entraînement publiés</caption>
+            <tbody>
+              <tr data-day="3"><th scope="row">Mercredi<span class="today-tag" hidden>Aujourd'hui</span></th><td>18h00 – 20h00</td></tr>
+              <tr data-day="4"><th scope="row">Jeudi<span class="today-tag" hidden>Aujourd'hui</span></th><td>18h00 – 20h00</td></tr>
+              <tr data-day="5"><th scope="row">Vendredi<span class="today-tag" hidden>Aujourd'hui</span></th><td>18h00 – 20h00</td></tr>
+              <tr data-day="6"><th scope="row">Samedi<span class="today-tag" hidden>Aujourd'hui</span></th><td>10h00 – 11h30</td></tr>
+            </tbody>
+          </table>
+          <p class="slots-note">Créneaux publiés dans l'annuaire des associations. Confirmez-les par téléphone avant votre première séance.</p>
+        </aside>
+      </div>
+
+      <div id="acces" class="access">
+        <div class="access-head reveal">
+          <p class="eyebrow">Accès</p>
+          <h2 class="h2">7, rue de la Halle.</h2>
+        </div>
+        <div class="address reveal">
+          <address>
+            <strong>Salle de sports</strong>
+            7 Rue de la Halle<br>59800 Lille · Vieux-Lille
+          </address>
+          <div class="address-actions">
+            <a class="btn btn-primary" href="https://www.google.com/maps/dir/?api=1&amp;destination=VLBC%20-%20Vieux-Lille%20Boxing%20Club%2C%207%20Rue%20de%20la%20Halle%2C%2059800%20Lille" target="_blank" rel="noopener">
+              <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l18-8-8 18-2-8z"/></svg>
+              Itinéraire
+            </a>
+            <a class="btn btn-ghost" href="https://www.google.com/maps/place/?q=place_id:ChIJOT4AMnoqw0cRwZfW_Rj723c" target="_blank" rel="noopener">Google Maps</a>
+          </div>
+        </div>
+        <div class="access-media reveal">
+          <figure class="photo">
+            <img src="assets/photos/photo-01.jpg" width="768" height="768" loading="lazy" decoding="async"
+                 alt="Façade en brique rouge à grandes arcades vitrées, rue de la Halle à Lille">
+            <figcaption>La façade de brique à arcades, rue de la Halle.</figcaption>
+          </figure>
+          <div class="map">
+            <p class="map-fallback"><a href="https://www.google.com/maps/place/?q=place_id:ChIJOT4AMnoqw0cRwZfW_Rj723c" target="_blank" rel="noopener">Ouvrir la carte dans Google Maps</a></p>
+            <iframe src="https://www.google.com/maps?q=VLBC%20-%20Vieux-Lille%20Boxing%20Club%2C%207%20Rue%20de%20la%20Halle%2C%2059800%20Lille&amp;output=embed"
+                    title="Carte : VLBC, 7 rue de la Halle, 59800 Lille" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section contact" aria-labelledby="contact-title">
+    <div class="container contact-grid">
+      <div class="contact-head reveal">
+        <p class="eyebrow">Contact</p>
+        <h2 class="h2" id="contact-title">Une question avant de venir&nbsp;?</h2>
+        <a class="big-phone" href="tel:+33626611752" aria-label="Appeler le 06 26 61 17 52">06 26 61 17 52</a>
+        <ul class="contact-list">
+          <li><a href="sms:+33626611752?&amp;body=Bonjour%2C%20je%20souhaiterais%20des%20renseignements%20sur%20les%20entra%C3%AEnements%20de%20boxe%20au%20VLBC%20(cr%C3%A9neaux%2C%20inscription).%20Merci.">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9l-5 4V6a1 1 0 0 1 1-1z"/><path d="M8 10h8M8 13h5"/></svg>
+            <span>Envoyer un SMS</span></a></li>
+          <li><a href="mailto:vlbc@gmail.com?subject=Renseignements%2C%20entra%C3%AEnements%20au%20VLBC">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 7l8.5 6 8.5-6"/></svg>
+            <span>vlbc@gmail.com</span></a></li>
+          <li><a href="https://www.facebook.com/p/Vieux-Lille-Boxing-Club-100071052219325/" target="_blank" rel="noopener">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 21v-8h3l.5-3.5H14V7.8c0-1 .4-1.8 1.9-1.8H18V3a17 17 0 0 0-2.8-.2C12.6 2.8 11 4.4 11 7.3v2.2H8V13h3v8"/></svg>
+            <span>Le club sur Facebook</span></a></li>
+        </ul>
+      </div>
+
+      <div class="composer reveal" id="composer">
+        <h3>Préparer mon message</h3>
+        <p>Deux choix, et le message s'écrit tout seul. Il s'ouvre dans vos SMS ou votre messagerie, rien n'est envoyé sans vous.</p>
+        <fieldset class="field">
+          <legend>C'est pour qui&nbsp;?</legend>
+          <div class="seg">
+            <label><input type="radio" name="who" value="moi" checked><span>Pour moi</span></label>
+            <label><input type="radio" name="who" value="enfant"><span>Pour mon enfant</span></label>
+          </div>
+        </fieldset>
+        <div class="field">
+          <label class="lbl" for="discipline">Discipline</label>
+          <div class="select">
+            <select id="discipline">
+              <option value="">Je ne sais pas encore</option>
+              <option value="boxe éducative assaut">Boxe éducative assaut</option>
+              <option value="boxe amateur">Boxe amateur</option>
+              <option value="noble art (dès 5 ans)">Noble art, dès 5 ans</option>
+            </select>
+          </div>
+        </div>
+        <p class="preview" id="preview" aria-live="polite">Bonjour, je souhaiterais des renseignements sur les entraînements de boxe au VLBC (créneaux, inscription). Merci.</p>
+        <div class="composer-actions">
+          <a class="btn btn-primary" id="send-sms" href="sms:+33626611752?&amp;body=Bonjour%2C%20je%20souhaiterais%20des%20renseignements%20sur%20les%20entra%C3%AEnements%20de%20boxe%20au%20VLBC%20(cr%C3%A9neaux%2C%20inscription).%20Merci.">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9l-5 4V6a1 1 0 0 1 1-1z"/></svg>
+            Par SMS
+          </a>
+          <a class="btn btn-ghost" id="send-mail" href="mailto:vlbc@gmail.com?subject=Renseignements%2C%20entra%C3%AEnements%20au%20VLBC&amp;body=Bonjour%2C%20je%20souhaiterais%20des%20renseignements%20sur%20les%20entra%C3%AEnements%20de%20boxe%20au%20VLBC%20(cr%C3%A9neaux%2C%20inscription).%20Merci.">
+            <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 7l8.5 6 8.5-6"/></svg>
+            Par e-mail
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <div class="footer-brand">
+        <svg class="brand-mark" viewBox="0 0 40 40" aria-hidden="true" focusable="false" width="44" height="44">
+          <rect width="40" height="40" rx="9" fill="#9B3A24"/>
+          <path d="M10.5 34V19a9.5 9.5 0 0 1 19 0v15" fill="none" stroke="#F3ECE2" stroke-width="3"/>
+          <path d="M15.5 18.5l4.5 10.5 4.5-10.5" fill="none" stroke="#F3ECE2" stroke-width="3" stroke-linejoin="round"/>
+        </svg>
+        <span class="brand-text"><span class="brand-name">VLBC</span><span class="brand-sub">Vieux-Lille Boxing Club</span></span>
+      </div>
+      <p style="margin-top:var(--space-4)">Club de boxe anglaise, salle de sports du 7, rue de la Halle, 59800 Lille.</p>
+    </div>
+    <ul class="footer-links">
+      <li><a href="tel:+33626611752"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>06 26 61 17 52</a></li>
+      <li><a href="mailto:vlbc@gmail.com"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3.5 7l8.5 6 8.5-6"/></svg>vlbc@gmail.com</a></li>
+      <li><a href="https://www.facebook.com/p/Vieux-Lille-Boxing-Club-100071052219325/" target="_blank" rel="noopener" aria-label="Facebook du Vieux-Lille Boxing Club"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M14 21v-8h3l.5-3.5H14V7.8c0-1 .4-1.8 1.9-1.8H18V3a17 17 0 0 0-2.8-.2C12.6 2.8 11 4.4 11 7.3v2.2H8V13h3v8"/></svg>Facebook</a></li>
+      <li><a href="https://www.google.com/maps/dir/?api=1&amp;destination=VLBC%20-%20Vieux-Lille%20Boxing%20Club%2C%207%20Rue%20de%20la%20Halle%2C%2059800%20Lille" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l18-8-8 18-2-8z"/></svg>Itinéraire</a></li>
+    </ul>
+    <div class="footer-legal">
+      <p>Association loi 1901, dénomination officielle «&nbsp;Noble Art Vieux Lille&nbsp;» · SIREN&nbsp;832&nbsp;644&nbsp;124</p>
+      <p>© <span id="year"></span> VLBC – Vieux-Lille Boxing Club</p>
+    </div>
+  </div>
+</footer>
+
+<nav class="action-bar" aria-label="Actions rapides">
+  <a href="tel:+33626611752">
+    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2"/></svg>
+    Appeler
+  </a>
+  <a href="sms:+33626611752?&amp;body=Bonjour%2C%20je%20souhaiterais%20des%20renseignements%20sur%20les%20entra%C3%AEnements%20de%20boxe%20au%20VLBC%20(cr%C3%A9neaux%2C%20inscription).%20Merci.">
+    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9l-5 4V6a1 1 0 0 1 1-1z"/></svg>
+    SMS
+  </a>
+  <a href="https://www.google.com/maps/dir/?api=1&amp;destination=VLBC%20-%20Vieux-Lille%20Boxing%20Club%2C%207%20Rue%20de%20la%20Halle%2C%2059800%20Lille" target="_blank" rel="noopener">
+    <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 11l18-8-8 18-2-8z"/></svg>
+    Itinéraire
+  </a>
+</nav>
+
+<script>
+(() => {
+  const d = document, root = d.documentElement;
+  root.classList.add('js');
+
+  // Menu: aria-expanded, Esc, scroll lock, links close it
+  const btn = d.querySelector('.menu-btn'), menu = d.getElementById('menu');
+  const isOpen = () => btn.getAttribute('aria-expanded') === 'true';
+  const setMenu = (open) => {
+    btn.setAttribute('aria-expanded', String(open));
+    btn.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+    menu.classList.toggle('is-open', open);
+    root.classList.toggle('lock', open);
+    if (open) setTimeout(() => menu.querySelector('a').focus(), 60);
+  };
+  btn.addEventListener('click', () => setMenu(!isOpen()));
+  menu.addEventListener('click', (e) => { if (e.target.closest('a') && isOpen()) setMenu(false); });
+  d.addEventListener('keydown', (e) => { if (e.key === 'Escape' && isOpen()) { setMenu(false); btn.focus(); } });
+  matchMedia('(min-width: 960px)').addEventListener('change', (e) => { if (e.matches && isOpen()) setMenu(false); });
+
+  // Footer year
+  d.getElementById('year').textContent = new Date().getFullYear();
+
+  // Training slots: mark today
+  const today = new Date().getDay();
+  d.querySelectorAll('[data-day]').forEach((row) => {
+    if (Number(row.dataset.day) === today) { row.classList.add('is-today'); row.querySelector('.today-tag').hidden = false; }
+  });
+
+  // Message composer: builds SMS / e-mail links
+  const phone = '+33626611752', mail = 'vlbc@gmail.com';
+  const subject = 'Renseignements, entraînements au VLBC';
+  const disc = d.getElementById('discipline'), preview = d.getElementById('preview');
+  const sms = d.getElementById('send-sms'), email = d.getElementById('send-mail');
+  const build = () => {
+    const who = (d.querySelector('input[name="who"]:checked') || {}).value;
+    const what = disc.value;
+    let msg = 'Bonjour, je souhaiterais des renseignements ';
+    if (who === 'enfant') msg += `pour inscrire mon enfant ${what ? `en ${what} ` : ''}au VLBC`;
+    else msg += `sur les entraînements de ${what || 'boxe'} au VLBC`;
+    msg += ' (créneaux, inscription). Merci.';
+    preview.textContent = msg;
+    const body = encodeURIComponent(msg);
+    sms.href = `sms:${phone}?&body=${body}`;
+    email.href = `mailto:${mail}?subject=${encodeURIComponent(subject)}&body=${body}`;
+  };
+  d.querySelectorAll('input[name="who"]').forEach((r) => r.addEventListener('change', build));
+  disc.addEventListener('change', build);
+
+  // Scroll reveals
+  const items = d.querySelectorAll('.reveal');
+  if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const io = new IntersectionObserver((entries) => entries.forEach((en) => {
+      if (en.isIntersecting) { en.target.classList.add('is-in'); io.unobserve(en.target); }
+    }), { rootMargin: '0px 0px -6% 0px', threshold: 0 });
+    items.forEach((el) => io.observe(el));
+  } else items.forEach((el) => el.classList.add('is-in'));
+})();
+</script>
+<!--sf:preview--><div style="padding:18px 16px;font:13px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif;text-align:center;background:#0f0f10;color:#a3a3a8">Aperçu réalisé par Aymen Jallouli pour VLBC - Vieux-Lille Boxing Club : ce site n'est pas encore le site officiel de l'établissement.</div><!--/sf:preview-->
+<!--sf:track--><script>(function(){try{var q=new URLSearchParams(location.search),r=q.get('r')||sessionStorage.getItem('sf_r');if(!r)return;sessionStorage.setItem('sf_r',r);navigator.sendBeacon("https://track.aymenjallouli.dev/t"+'?r='+encodeURIComponent(r)+'&p='+encodeURIComponent(location.pathname));}catch(e){}})();</script><!--/sf:track-->
+</body>
+</html>
